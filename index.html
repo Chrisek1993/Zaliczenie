@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cinema-City</title>
+
+
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    -->
+
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-firestore.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+    <link rel="stylesheet" href="style.css">
+
+
+</head>
+
+<body>
+
+    <script type="text/javascript" src="data2.js"></script>
+    <script type="text/javascript" src="data_movies.js"></script>
+    <header>
+        <div class="row">
+            <div class="logo">
+                <img src="img/logo-cinema-white2.png">
+            </div>
+            <ul class="main-nav">
+                <li class="active"><a href=""> Cinema-City </a></li>
+                <li id="btn-repertuar"><a> Repertuar </a></li>
+                <li id="btn-rej">Logowanie</li>
+                
+            </ul>
+        </div>
+
+        <div class="kino">
+            <h1> Witajcie w kinie Cinema-City
+                <br>
+                <br>
+                Zarezerwuj bilet i ciesz się seansem 
+                <br>
+                <br>
+                <br>
+            </h1>
+            <div class="button">
+                <a class="btn btn-one" id="btn-wybor-kina"> Wybierz miejscowość</a>
+                <a class="btn btn-two" id="btn-wyborfilm"> Wybierz film</a>
+                <a class="btn btn-two" id="btn-wybor-miejsce"> Wybierz miejsce</a>
+                <br>
+                <br>
+                <br>
+            </div>
+        </div>
+
+        <div class="screen">
+            <div class="podsumowanie">
+
+                <div>  </div>
+
+                <div id="kino_poznan2" class="ukryj">Wybrane kino: Poznań </div>
+
+                <div id="kino_Warszawa2" class="ukryj">Wybrane kino: Warszawa</div>
+
+                <div id="kino_katowice2" class="ukryj">Wybrane kino: Katowice</div>
+
+                <div id="id_to2" class="ukryj"> FILM "Imprezowi Rodzice" </div>
+
+                <div id="id_cos2" class="ukryj">FILM "Król Lew"  </div>
+
+                <div id="id_ai2" class="ukryj">FILM "Spider-Man" </div>
+
+                <div id="cena2" class="ukryj"></div>
+
+            </div>
+        </div>
+
+    </header>
+    <footer>
+
+        <!-- modal rejestracja -->
+        <div class="modal-kino">
+            <div id="modal-kino-id" class="modal-kino-content animate">
+
+                <div class="close2">+</div>
+                <img src="img/avatar.png" width=75px alt="">
+
+                <form action="">
+
+                    <div class="container-email">
+                        <input id="user-login" class="email" type="email" placeholder="email">
+
+                        <div class="update"></div>
+                        </a>
+                    </div>
+
+                    <input type="password" id="psw" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                        placeholder="Hasło">
+
+                    <div id="alert-haslo">
+
+                        <p id="litera" class="invalid"></p>
+                        <p id="litera-duza" class="invalid"></p>
+                        <p id="cyfra" class="invalid"></p>
+                        <p id="liczba-znakow" class="invalid"></p>
+
+                    </div>
+
+                    <input id="btn-zal" class="btn-zal" type="button" value="zaloguj" onclick="getInfo()"><br />
+
+
+                    <div id="alert-haslo">
+
+                        <p id="zalogowano" class="invalid"></p>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <!-- modal wybor kina -->
+        <div class="modal-kino-wybor">
+            <div id="modal-kino-id" class="modal-kino-wybor-content animate">
+
+                <div class="close2-wybor-kina">+</div>
+
+
+                <div class="wybor-kina">
+                    <label id="wybor2" for="wybor"> Wybierz swoje kino </label> <br>
+                    <select name="" id="wybor">
+                        <option value="" selected disabled hidden>Rozwiń listę kin</option>
+                        <option value="poznan">Poznań</option>
+                        <option value="warszawa">Warszawa</option>
+                        <option value="katowice">Katowice</option>
+                    </select>
+
+                    <div class="wybrane-kino">
+
+                        <div id="kino_poznan" class="ukryj">Wybrane kino: Poznań </div>
+
+                        <div id="kino_warszawa" class="ukryj">Wybrane kino: Warszawa</div>
+
+                        <div id="kino_katowice" class="ukryj">Wybrane kino: Katowice</div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- modal wybor filmu -->
+        <div class="modal-film-wybor">
+            <div id="modal-film-id" class="modal-film-wybor-content animate">
+
+                <div class="close2-wybor-film">+</div>
+
+
+                <div class="wybor-film">
+
+                    <label id="wybor2" for="wybor"> Wybierz film </label> <br>
+                    <select name="" id="wybor_film">
+                        <option value="" selected disabled hidden>Lista filmów</option>
+                        <option value="to">"Imprezowi Rodzice"</option>
+                        <option value="cos">"Król Lew"</option>
+                        <option value="ai">"Spider-Man"</option>
+                    </select>
+
+                    <div class="wybrane-kino">
+
+                        <div id="id_to" class="ukryj">Wybrany film : "Imprezowi Rodzice" </div>
+
+                        <div id="id_cos" class="ukryj">Wybrany film: "Król Lew" </div>
+
+                        <div id="id_ai" class="ukryj">Wybrany film: "Spider-Man" </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- modal wybor miejsca -->
+        <div class="modal-miejsce-wybor">
+            <div id="modal-miejsce-id" class="modal-miejsce-wybor-content animate">
+
+                <div class="close2-wybor-miejsce">+</div>
+
+                <!-- wybór miejsca -->
+                <div class="div_wybor">
+                    <div class="div1" id="div1">
+
+
+                    </div>
+                    Cena biletów:
+                    <div id="cena">
+                        Wybierz miejsca!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- modal repertuaru -->
+        <div class="modal-repertuar">
+            <div id="modal-repertuar-id" class="modal-repertuar-content animate">
+
+                <div class="close2-repertuar">+</div>
+
+                <div class="movie_film">
+                    <div class="it_id2"><img id="it_img" src="img/rodzice.jpg"> </div>
+                    <div class="cos_id2"><img src="img/lew.jpg"> </div>
+                    <div class="ai_id2"><img src="img/spiderman.jpg"> </div>
+                    <br>
+                    <div class="movie_details">
+                        <a id="movie_title"></a>
+                        <a id="year"></a>
+                        <a id="genre"></a>
+                        <a id="description"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+
+<!-- modal alert wygaśnięcia sesji -->
+<div class="modal-timeout">
+    <div id="modal-timeout-id" class="modal-timeout-content animate">
+
+        <div class="close2-timeout">+</div>
+        <br /><br />
+        Twoja sesja wygasa.
+
+        Kliknij poniższy przycisk, aby przedłużyć sesję ! 
+
+        <input id="btn-timeout" class="btn-timeout" type="button" value="Przedłuż sesję"
+            onclick="mojaFunkcja()"><br />
+
+        <div id="alert-haslo">
+
+            <p id="zalogowano" class="invalid"></p>
+
+        </div>
+
+            </form>
+        </div>
+    </div>
+    
+
+        <script type="text/javascript" src="script.js"></script>
+
+    </footer>
+</body>
+
+</html>
